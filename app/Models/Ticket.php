@@ -10,11 +10,23 @@ class Ticket extends Model
     use HasFactory;
 
     protected $fillable = [
-        'customer_name',
-        'description',
-        'email',
-        'phone',
         'reference_number',
-        'status'
+        'customer_name',
+        'email',
+        'phone_number',
+        'description',
+        'status',
+        'agent_id',
+        'is_opened',
     ];
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
+    public function agent()
+    {
+        return $this->belongsTo(User::class, 'agent_id');
+    }
 }

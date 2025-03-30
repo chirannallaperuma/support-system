@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_name');
-            $table->text('description');
-            $table->string('email');
-            $table->string('phone');
             $table->string('reference_number')->unique();
-            $table->enum('status', ['open', 'in_progress', 'closed'])->default('open');
+            $table->string('customer_name');
+            $table->string('email');
+            $table->string('phone_number');
+            $table->text('description');
+            $table->enum('status', ['pending', 'in_progress', 'resolved'])->default('pending');
+            $table->foreignId('agent_id')->nullable()->constrained('users');
+            $table->boolean('is_opened')->default(false);
             $table->timestamps();
         });
     }
